@@ -28,7 +28,7 @@ This system uses **Intent Detection**, **Retrieval-Augmented Generation (RAG)**,
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/yourusername/E-com-AI_Agents.git
+git clone https://github.com/pankaj221pandey/E-com-AI-Agents.git
 cd E-com-AI_Agents
 python3 -m venv venv
 source venv/bin/activate
