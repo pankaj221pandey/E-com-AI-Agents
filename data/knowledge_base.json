@@ -1,0 +1,30 @@
+[
+    {
+        "question": "What is your return policy?",
+        "answer": "We offer a 30-day return policy from the delivery date. Items must be in new, unused condition with all original packaging."
+    },
+    {
+        "question": "Do you provide warranty on products?",
+        "answer": "Yes, most electronics come with a 1-year manufacturer's warranty. Check individual product pages for details."
+    },
+    {
+        "question": "How long does shipping take?",
+        "answer": "Standard shipping takes 3-7 business days depending on location. Express shipping options are also available at checkout."
+    },
+    {
+        "question": "Can I cancel my order after placing it?",
+        "answer": "You can cancel your order within 2 hours of placing it. After that, you'll need to initiate a return once the item is delivered."
+    },
+    {
+        "question": "What if I receive a damaged item?",
+        "answer": "Contact customer support immediately with photos of the damage. We will arrange a replacement or refund as appropriate."
+    },
+    {
+        "question": "How do I contact support?",
+        "answer": "You can contact our support team via email at support@example.com or call us at 1800-123-4567."
+    },
+    {
+        "question": "Do you offer discounts?",
+        "answer": "We occasionally run seasonal promotions. Please stay-tuned for updated on discounts."
+    }
+]

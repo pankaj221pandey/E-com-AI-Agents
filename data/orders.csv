@@ -1,0 +1,11 @@
+order_id,user_id,product_ids,order_date,status,shipping_info,expected_delivery,return_policy,product_name
+ORD12345,USER9876,1001,2025-03-15,Pending,,,,iPhone 15 Pro Max Case
+ORD12346,USER9877,"1002,1004",2025-03-10,Shipped,FedEx 9400100000000001234567,2025-03-20,30 days from delivery date,iPhone 15 Silicone Case
+ORD12347,USER9878,1003,2025-03-05,Delivered,Delivered on 2025-03-08,2025-03-08,Return within 14 days of delivery,MagSafe Charger
+ORD12348,USER9879,1005,2025-03-01,Processing,,,,Apple MagSafe Wallet
+ORD12349,USER9880,"1007,1009",2025-02-28,Delivered,Delivered on 2025-03-03,2025-03-03,30 days from delivery date,AirPods Pro 2
+ORD12350,USER9881,1008,2025-02-25,Shipped,UPS Z123456789,2025-03-01,Return within 14 days of delivery,Google Pixel Buds A-Series
+ORD12351,USER9882,1006,2025-02-20,Delivered,Delivered on 2025-02-25,2025-02-25,30 days from delivery date,Beats Solo 3 Wireless
+ORD12352,USER9883,"1004,1005",2025-02-18,Delivered,Delivered on 2025-02-22,2025-02-22,30 days from delivery date,USB-C to Lightning Cable
+ORD12353,USER9884,1001,2025-02-10,Cancelled,Order cancelled by user,,,iPhone 15 Pro Max Case
+ORD12354,USER9885,1009,2025-02-05,Delivered,Delivered on 2025-02-09,2025-02-09,30 days from delivery date,Samsung Galaxy S24

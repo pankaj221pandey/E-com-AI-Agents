@@ -1,0 +1,11 @@
+product_id,product_name,category,brand,price,description,features,tags,rating,in_stock,related_products
+1001,iPhone 15 Pro Max Case,Phone Accessories,Spigen,29.99,Slim and rugged case with military-grade drop protection,"drop protection, slim design","case, iPhone 15, rugged",4.7,True,"1002,1003"
+1002,iPhone 15 Silicone Case,Phone Accessories,Apple,19.99,Soft touch silicone with multiple color options,"colorful, shock absorption","case, iPhone 15, colorful",4.5,True,"1001,1003"
+1003,MagSafe Charger,Phone Accessories,Apple,34.99,Magnetic charging pad compatible with iPhone 15,"wireless charging, magnetic","charger, MagSafe, iPhone 15",4.6,True,1004
+1004,USB-C to Lightning Cable,Cables & Adapters,Anker,14.99,Durable 2m cable with fast charging support,"fast charging, durable","cable, USB-C, iPhone",4.8,True,1003
+1005,Apple MagSafe Wallet,Phone Accessories,Apple,39.99,Snap-on wallet for iPhone with RFID protection,"RFID blocking, magnetic attachment","wallet, MagSafe, iPhone",4.6,True,1003
+1006,Beats Solo 3 Wireless,Headphones,Apple,199.99,Wireless on-ear headphones with long battery life,"Bluetooth, noise isolation","headphones, Beats, wireless",4.4,True,1007
+1007,AirPods Pro 2,Earbuds,Apple,249.99,Premium wireless earbuds with active noise cancellation,"ANC, spatial audio","earbuds, AirPods, noise cancelling",4.9,True,1006
+1008,Google Pixel Buds A-Series,Earbuds,Google,119.99,Affordable wireless earbuds with clear sound quality,"wireless, lightweight","earbuds, Google, budget",4.3,True,1007
+1009,Samsung Galaxy S24,Smartphones,Samsung,799.99,Flagship Android phone with AI features,"AI camera, 5G, AMOLED display","phone, Samsung, flagship",4.7,True,"1001,1005"
+1010,iPad Pro 12.9 inch,Tablets,Apple,1099.0,High-performance tablet with M2 chip,"M2 chip, Retina display, Apple Pencil support","tablet, iPad, Apple",4.8,True,"1005,1007"

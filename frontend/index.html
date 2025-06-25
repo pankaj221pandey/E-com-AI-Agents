@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ecom AI-Agent</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f0f0f5;
+      padding: 20px;
+    }
+
+    #login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 100px;
+    }
+
+    #login-screen input {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 250px;
+    }
+
+    #login-screen button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #logout-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: none;
+      background: #e74c3c;
+      color: white;
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .suggested-questions {
+      display: none;
+      margin: 30px;
+      padding: 20px;
+      background-color: #e9f5ff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      max-width: 500px;
+    }
+
+    .suggested-questions h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .suggested-questions ul {
+      padding-left: 20px;
+      list-style-type: none;
+    }
+
+    .suggested-questions li {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #444;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .suggested-questions li:hover {
+      color: #007acc;
+    }
+
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: none;
+    }
+
+    #chatbox {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      height: 460px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 998;
+    }
+
+    #chatbox header {
+      background: #4a90e2;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    #chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      margin: 6px 0;
+      padding: 10px 14px;
+      border-radius: 16px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #e1ffc7;
+      text-align: right;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background-color: #f1f1f1;
+      text-align: left;
+    }
+
+    #chatbox footer {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    #question {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    #send-btn {
+      margin-left: 6px;
+      background: none;
+      border: none;
+      color: #4a90e2;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #send-btn:hover {
+      color: #357abd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="login-screen">
+  <h2>Login to Start Chat</h2>
+  <input type="text" id="user-id" placeholder="Enter User ID" />
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- Logout Button -->
+<button id="logout-btn" onclick="logout()">Logout</button>
+
+<!-- Suggested Questions -->
+<div class="suggested-questions" id="suggested-questions">
+  <h2>Suggested Questions</h2>
+  <ul>
+    <li class="ask" data-question="What is your return policy?">1. What is your return policy?</li>
+    <li class="ask" data-question="Where is my order?">2. Where is my order?</li>
+    <li class="ask" data-question="Can you recommend something new?">3. Can you recommend something new?</li>
+    <li class="ask" data-question="How do I contact support?">4. How do I contact support?</li>
+    <li class="ask" data-question="Do you offer discounts?">5. Do you offer discounts?</li>
+  </ul>
+</div>
+
+<!-- Floating Chat Button -->
+<button id="chat-toggle">💬</button>
+
+<!-- Chat Window -->
+<div id="chatbox">
+  <header>Chat with AI</header>
+  <div id="chat-messages"></div>
+  <footer>
+    <input id="question" placeholder="Type a message..." />
+    <button id="send-btn" title="Send">➤</button>
+  </footer>
+</div>
+
+<script>
+  let userId = null;
+  const apiUrl = "/query";
+
+  const chatToggle = document.getElementById('chat-toggle');
+  const chatbox = document.getElementById('chatbox');
+  const messages = document.getElementById('chat-messages');
+  const input = document.getElementById('question');
+  const sendBtn = document.getElementById('send-btn');
+
+  chatToggle.addEventListener('click', () => {
+    const isOpen = chatbox.style.display === 'flex';
+    chatbox.style.display = isOpen ? 'none' : 'flex';
+    chatbox.style.flexDirection = 'column';
+    if (!isOpen) {
+      setTimeout(() => input.focus(), 100);
+    }
+  });
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  function login() {
+    const enteredId = document.getElementById("user-id").value.trim();
+    if (!enteredId) return alert("Please enter a valid User ID.");
+    userId = enteredId;
+
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("logout-btn").style.display = "block";
+    document.getElementById("chat-toggle").style.display = "block";
+    document.getElementById("suggested-questions").style.display = "block";
+  }
+
+  function logout() {
+    userId = null;
+    document.getElementById("login-screen").style.display = "flex";
+    document.getElementById("logout-btn").style.display = "none";
+    document.getElementById("chat-toggle").style.display = "none";
+    document.getElementById("chatbox").style.display = "none";
+    document.getElementById("suggested-questions").style.display = "none";
+    messages.innerHTML = "";
+    input.value = "";
+  }
+
+  async function sendMessage() {
+    const question = input.value.trim();
+    if (!question || !userId) return;
+
+    appendMessage(question, "user");
+    input.value = "";
+
+    const typingMsg = appendMessage("typing", "bot", true);
+    startTypingAnimation(typingMsg);
+
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ user_id: userId, message: question })
+      });
+
+      const data = await res.json();
+      stopTypingAnimation();
+      typingMsg.innerText = data.final_response || "No response.";
+    } catch (err) {
+      stopTypingAnimation();
+      typingMsg.innerText = "⚠️ Error connecting to server.";
+    }
+  }
+
+  function appendMessage(text, cls, isTemp = false) {
+    const msg = document.createElement("div");
+    msg.classList.add("message", cls);
+    msg.innerText = text;
+    messages.appendChild(msg);
+    messages.scrollTop = messages.scrollHeight;
+    return isTemp ? msg : null;
+  }
+
+  // Suggested question click
+  document.querySelectorAll('.ask').forEach(item => {
+    item.addEventListener('click', () => {
+      input.value = item.getAttribute("data-question");
+      chatbox.style.display = "flex";
+      chatbox.style.flexDirection = "column";
+      setTimeout(() => input.focus(), 100);
+      sendMessage();
+    });
+  });
+  let typingInterval = null;
+
+function startTypingAnimation(element) {
+  let dots = 0;
+  typingInterval = setInterval(() => {
+    dots = (dots + 1) % 4;
+    element.innerText = "typing" + ".".repeat(dots);
+  }, 500);
+}
+
+function stopTypingAnimation() {
+  if (typingInterval) {
+    clearInterval(typingInterval);
+    typingInterval = null;
+  }
+}
+
+</script>
+
+</body>
+</html>
