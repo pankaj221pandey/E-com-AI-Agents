@@ -68,7 +68,7 @@ docker run -dp 8000:8000 e-com-ai
 ```bash
 pytest tests/test_integration.py
 ```
-
----
+## Flow-chart
+![E-com-agents-flow](https://github.com/user-attachments/assets/e7e84ccc-e68c-40cb-a95a-eb787ebf85c4)
 
 **Developed by Pankaj Pandey** ❤️
